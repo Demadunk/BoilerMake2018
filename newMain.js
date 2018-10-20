@@ -70,7 +70,7 @@ $(document).ready(function() {
    
     $(".continue").click(function() {
         let val = $(this).data("value");
-        if (val == true) {
+        if (val == "yes") {
             //numTrue++;
             if (questionCounter == 2) {
                 dogCounter++;
