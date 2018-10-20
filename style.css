@@ -1,0 +1,18 @@
+.myclass {
+	font-size: 350px;
+	color:#66ff66;
+}
+
+.myclass2{
+	font-size: 350px;
+	color: #FA3131
+
+}
+
+.something{
+
+	background: url("animal.jpg");
+	background: pink;
+	max-width: 100%;
+}
+
