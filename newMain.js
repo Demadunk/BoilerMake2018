@@ -62,7 +62,7 @@ $(document).ready(function() {
     $("#longTermPrice").change(function() {
         affordableAnimals = animals.filter(function(animal) {
             let values = $("#longTermPrice").slider("values");
-            if (animal.longCost <= $("#longTermPrice").slider("values[1]")) {
+            if (animal.longCost <= values[1] && animal.longCost >= values[0]) {
                 return animal;
             }
         })
