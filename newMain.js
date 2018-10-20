@@ -36,7 +36,10 @@ $(document).ready(function() {
     });
     let questionCounter = 0;
     let questions = ["1. How much money are you willing to spend to get the pet?",
-                     "2. How much money do you want to spend in total?", "3. question 3"];
+                     "2. How much money do you want to spend in total?", 
+                     "3. Do you like to hold your pet?",
+    				 "4: Do you want a stationary pet?",
+    				 "5: Are you willing to take your pet with you outside?"];
     $(".continue").click(function() {
         let val = $(this).data("value");
         if (val == true) {
