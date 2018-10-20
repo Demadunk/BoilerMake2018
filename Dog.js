@@ -1,7 +1,7 @@
 var counter = 0;
-function increaseCounter() {
+function increaseDogCounter() {
     counter++;
 }
-function getCounter() {
+function getDogCounter() {
     return counter;
 }
