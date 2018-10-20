@@ -4,7 +4,7 @@ $(document).ready(function() {
     let dogCounter = 0;
     let catCounter = 0;
     let fishCounter = 0;
-    let birdCounter
+    let birdCounter = 0;
     let questionCounter = 0;
     let questions = ["<div id='shortTermSlider'></div> <br> 1. How much money do you want to spend in total (4 year basis)?",
                      "<div id='longTermSlider'></div> <br> 2. How much money are you willing to spend to get the pet?", 
@@ -19,7 +19,7 @@ $(document).ready(function() {
         {
             type: fish,
             shortCost: 20,
-            longCost: 50
+            longCost: 50,
         },
         {
             type: cat,
@@ -105,6 +105,38 @@ $(document).ready(function() {
         $("h2").html(questions[questionCounter]);
         questionCounter++;
     });
+    let animalChoice = new Array();
+    for (i = 0; i < animalChoice.length; i++) {
+        if (affordableAnimals[i].type == dog) {
+            animalChoice[i] = dogCounter;
+        }
+        if (affordableAnimals[i].type == cat) {
+            animalChoice[i] = catCounter;
+        }
+        if (affordableAnimals[i].type == fish) {
+            animalChoice[i] = fishCounter;
+        }
+        if (affordableAnimals[i].type == bird) {
+            animalChoice[i] = birdCounter;
+        }
+    }
+    let largest = animalChoice[0];
+    let largestIndex = 0;
+    for (i = 0; i < animalChoice.length; i++) {
+        if (animalChoice[i] > largest) {
+            largest = animalChoice[i];
+            largestIndex = i;
+        }
+    }
+    if (animalChoice[largestIndex] == dogCounter) {
+        $("h2").html("you should get a dog!");
+    } else if (animalChoice[largestIndex] == catCounter) {
+        $("h2").html("you should get a cat!");
+    } else if (animalChoice[largestIndex] == fishCounter) {
+        $("h2").html("you should get a fish!");
+    } else {
+        $("h2").html("you should get a bird!");
+    }
 });
 
 //<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
