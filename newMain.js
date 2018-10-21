@@ -1,77 +1,89 @@
 $(document).ready(function() {
+    console.log('ready');
+    var questionCounter = 0;
+    var questions = ["<div id='shortTermSlider'></div> <br> 1. Are you willing to spend a lot of money on a pet?",
+                     "<div id='longTermSlider'></div> <br> 2. Are you willing to spend a lot of time with a pet?", 
+                     "3. Do you like to hold your pet?",
+                     "4: Do you want a stationary pet?",
+                     "5: Are you willing to take your pet with you outside?",
+                     "6: Do you seek an independent pet?",
+                     "7: Do you want a higher level of maitenence for your pet?",
+                     "8: Do you want a silent pet?",
+                     "9: Do you want to develop a relationship with your pet?"];
+    $('.question').html(questions[questionCounter]);
     //let numTrue = 0;
     //let numFalse = 0;
-    let dogCounter = 0;
-    let catCounter = 0;
-    let fishCounter = 0;
-    let birdCounter = 0;
-    let questionCounter = 0;
-    let questions = ["<div id='shortTermSlider'></div> <br> 1. How much money do you want to spend in total (4 year basis)?",
-                     "<div id='longTermSlider'></div> <br> 2. How much money are you willing to spend to get the pet?", 
-                     "3. Do you like to hold your pet?",
-    				 "4: Do you want a stationary pet?",
-    				 "5: Are you willing to take your pet with you outside?",
-    				 "6: Do you seek an independent pet?",
-    				 "7: Do you want a higher level of maitenence for your pet?",
-    				 "8: Do you want a silent pet?",
-                     "9: Do you want to develop a relationship with your pet?"];
-    let animals = [
+    var dogCounter = 0;
+    var catCounter = 0;
+    var fishCounter = 0;
+    var birdCounter = 0;
+    var animals = [
         {
-            type: fish,
+            type: "fish",
             shortCost: 20,
             longCost: 50,
         },
         {
-            type: cat,
+            type: "cat",
             shortCost: 50,
             longCost: 2000
         },
         {
-            type: dog,
+            type: "dog",
             shortCost: 500,
             longCost: 4000
         },
         {
-            type: bird,
+            type: "bird",
             shortCost: 160,
             longCost: 1000
         }
     ];
-    $("#shortTermPrice").slider({
+    /*let affordableAnimals = [];
+    $("#shortTermSlider").slider({
         max: 500,
         min: 1,
         values: [10, 200],
         range: true,
         step: 1,
     });
-    $("#shortTermPrice").change(function(){
+    $("#shortTermSlider").change(function(){
         affordableAnimals = affordableAnimals.filter(function(animal) {
-            let values = $("#shortTermPrice").slider("values");
+            let values = $("#shortTermSlider").slider("values");
             if (animal.shortCost <= values[1] && animal.shortCost >= values[0]) {
                 return animal;
             }
         });
     });
-    $("#longTermPrice").slider({
+    $("#longTermSlider").slider({
        max: 5000,
        min: 100,
        values: [300, 2000],
        range: true,
        step: 50
     });
-    $("#longTermPrice").change(function() {
+    $("#longTermSlider").change(function() {
         affordableAnimals = animals.filter(function(animal) {
-            let values = $("#longTermPrice").slider("values");
+            var values = $("#longTermSlider").slider("values");
             if (animal.longCost <= values[1] && animal.longCost >= values[0]) {
                 return animal;
             }
         })
-    });
-   
+    });*/
+   console.log('ready to click');
     $(".continue").click(function() {
-        let val = $(this).data("value");
+        console.log(questionCounter);
+        var val = $(this).data("value");
         if (val == "yes") {
             //numTrue++;
+            if (questionCounter == 0) {
+                dogCounter++;
+                catCounter++;
+                birdCounter++;
+            }
+            if (questionCounter == 1) {
+                dogCounter++;
+            }
             if (questionCounter == 2) {
                 dogCounter++;
                 catCounter++;
@@ -100,44 +112,90 @@ $(document).ready(function() {
                 catCounter++;
                 birdCounter++;
             }
-        } 
-        
-        $("h2").html(questions[questionCounter]);
+        } else {
+            if (questionCounter == 0) {
+                fishCounter++;
+            }
+            if (questionCounter == 1) {
+                catCounter++;
+                fishCounter++;
+                birdCounter++;
+            }
+            if (questionCounter == 2) {
+                fishCounter++;
+                birdCounter++;
+            }
+            if (questionCounter == 3) {
+                catCounter++;
+                dogCounter++;
+            }
+            if (questionCounter == 4) {
+                fishCounter++;
+                catCounter++;
+                birdCounter++;
+            }
+            if (questionCounter == 5) {
+                fishCounter++;
+                dogCounter++;
+            }
+            if (questionCounter == 6) {
+                fishCounter;
+                birdCounter++;
+            } 
+            if (questionCounter == 7) {
+                birdCounter++;
+                dogCounter++;
+            }
+            if (questionCounter == 8) {
+                fishCounter++;
+            }
+        }
         questionCounter++;
+        $(".question").html(questions[questionCounter]);
+        if(questionCounter > 8) {
+            $(".continue").hide()
+            check_result()
+        }
     });
-    let animalChoice = new Array();
-    for (i = 0; i < animalChoice.length; i++) {
-        if (affordableAnimals[i].type == dog) {
-            animalChoice[i] = dogCounter;
+
+    function check_result() {
+     
+        var animalChoice = new Array();
+        for (i = 0; i < animals.length; i++) {
+            if (animals[i].type == "dog") {
+                animalChoice[i] = dogCounter;
+            }
+            if (animals[i].type == "cat") {
+                animalChoice[i] = catCounter;
+            }
+            if (animals[i].type == "fish") {
+                animalChoice[i] = fishCounter;
+            }
+            if (animals[i].type == "bird") {
+                animalChoice[i] = birdCounter;
+            }
         }
-        if (affordableAnimals[i].type == cat) {
-            animalChoice[i] = catCounter;
+        var largest = animalChoice[0];
+        var largestIndex = 0;
+        for (i = 0; i < animalChoice.length; i++) {
+            if (animalChoice[i] > largest) {
+                largest = animalChoice[i];
+                largestIndex = i;
+            }
         }
-        if (affordableAnimals[i].type == fish) {
-            animalChoice[i] = fishCounter;
-        }
-        if (affordableAnimals[i].type == bird) {
-            animalChoice[i] = birdCounter;
-        }
+        if (animalChoice[largestIndex] == dogCounter) {
+            $(".question").html("you should get a dog!");
+        } else if (animalChoice[largestIndex] == catCounter) {
+            $(".question").html("you should get a cat!");
+        } else if (animalChoice[largestIndex] == fishCounter) {
+            $(".question").html("you should get a fish!");
+        } else {
+            $(".question").html("you should get a bird!");
+        }   
     }
-    let largest = animalChoice[0];
-    let largestIndex = 0;
-    for (i = 0; i < animalChoice.length; i++) {
-        if (animalChoice[i] > largest) {
-            largest = animalChoice[i];
-            largestIndex = i;
-        }
-    }
-    if (animalChoice[largestIndex] == dogCounter) {
-        $("h2").html("you should get a dog!");
-    } else if (animalChoice[largestIndex] == catCounter) {
-        $("h2").html("you should get a cat!");
-    } else if (animalChoice[largestIndex] == fishCounter) {
-        $("h2").html("you should get a fish!");
-    } else {
-        $("h2").html("you should get a bird!");
-    }
+    
+    
 });
 
-//<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-//<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+//
+//
